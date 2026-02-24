@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chip's Challenge - Stage 1</title>
+    <style>
+      :root {
+        --desktop: #007f7f;
+        --panel: #c0c0c0;
+        --light: #ffffff;
+        --dark: #7f7f7f;
+        --shadow: #4f4f4f;
+        --digit-bg: #111111;
+        --digit-fg: #ff2f2f;
+        --tile-size: 48px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--desktop);
+        font-family: Tahoma, 'MS Sans Serif', sans-serif;
+        display: grid;
+        place-items: center;
+        padding: 14px;
+      }
+
+      .window {
+        width: max-content;
+        max-width: 100%;
+        background: var(--panel);
+        padding: 8px;
+        border-top: 3px solid var(--light);
+        border-left: 3px solid var(--light);
+        border-right: 3px solid var(--shadow);
+        border-bottom: 3px solid var(--shadow);
+      }
+
+      .title {
+        margin: 0 0 6px;
+        padding: 5px 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #ffffff;
+        background: linear-gradient(90deg, #0a246a, #2f71b8);
+        text-transform: uppercase;
+      }
+
+      .hud {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        margin-bottom: 8px;
+        border-top: 3px solid var(--light);
+        border-left: 3px solid var(--light);
+        border-right: 3px solid var(--dark);
+        border-bottom: 3px solid var(--dark);
+      }
+
+      .digits {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .digit-box {
+        min-width: 110px;
+        padding: 5px 8px;
+        text-align: center;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--digit-fg);
+        background: var(--digit-bg);
+        border-top: 2px solid #5d5d5d;
+        border-left: 2px solid #5d5d5d;
+        border-right: 2px solid #f5f5f5;
+        border-bottom: 2px solid #f5f5f5;
+      }
+
+      .digit-box strong {
+        font-weight: 700;
+      }
+
+      .keys {
+        display: flex;
+        gap: 6px;
+      }
+
+      .key-pill {
+        min-width: 62px;
+        padding: 4px 6px;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 12px;
+        text-align: center;
+        background: #d9d9d9;
+        border-top: 2px solid var(--light);
+        border-left: 2px solid var(--light);
+        border-right: 2px solid var(--dark);
+        border-bottom: 2px solid var(--dark);
+      }
+
+      .key-pill span {
+        font-weight: 700;
+      }
+
+      .key-blue {
+        color: #0038ff;
+      }
+
+      .key-red {
+        color: #c30000;
+      }
+
+      .key-green {
+        color: #0a920a;
+      }
+
+      .key-yellow {
+        color: #8f8400;
+      }
+
+      .hud button {
+        height: 32px;
+        padding: 0 10px;
+        border: 2px solid;
+        border-top-color: var(--light);
+        border-left-color: var(--light);
+        border-right-color: var(--dark);
+        border-bottom-color: var(--dark);
+        font: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        background: var(--panel);
+        cursor: pointer;
+      }
+
+      .hud button:active {
+        border-top-color: var(--dark);
+        border-left-color: var(--dark);
+        border-right-color: var(--light);
+        border-bottom-color: var(--light);
+      }
+
+      .status {
+        margin: 0 0 8px;
+        min-height: 30px;
+        padding: 6px 8px;
+        font-size: 12px;
+        font-weight: 700;
+        background: #e8e8e8;
+        border-top: 2px solid var(--dark);
+        border-left: 2px solid var(--dark);
+        border-right: 2px solid var(--light);
+        border-bottom: 2px solid var(--light);
+      }
+
+      .status.win {
+        color: #046d24;
+      }
+
+      .status.lose {
+        color: #a00000;
+      }
+
+      .board-shell {
+        padding: 6px;
+        border-top: 3px solid var(--dark);
+        border-left: 3px solid var(--dark);
+        border-right: 3px solid var(--light);
+        border-bottom: 3px solid var(--light);
+        overflow: auto;
+      }
+
+      .board {
+        display: grid;
+        gap: 0;
+        width: fit-content;
+        image-rendering: pixelated;
+        touch-action: manipulation;
+      }
+
+      .tile {
+        width: var(--tile-size);
+        height: var(--tile-size);
+        border: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        image-rendering: pixelated;
+      }
+
+      .tile.floor {
+        background-image: url('./assets/chips/wiki/floor.png');
+      }
+
+      .tile.wall {
+        background-image: url('./assets/chips/wiki/wall.png');
+      }
+
+      .tile.hint {
+        background-image: url('./assets/chips/wiki/hint.png');
+      }
+
+      .tile.exit {
+        background-image: url('./assets/chips/wiki/exit.png');
+      }
+
+      .tile.socket {
+        background-image: url('./assets/chips/wiki/socket.png');
+      }
+
+      .tile.door-blue {
+        background-image: url('./assets/chips/wiki/door-blue.png');
+      }
+
+      .tile.door-red {
+        background-image: url('./assets/chips/wiki/door-red.png');
+      }
+
+      .tile.door-green {
+        background-image: url('./assets/chips/wiki/door-green.png');
+      }
+
+      .tile.door-yellow {
+        background-image: url('./assets/chips/wiki/door-yellow.png');
+      }
+
+      .tile.key-blue {
+        background-image: url('./assets/chips/wiki/key-blue.png');
+      }
+
+      .tile.key-red {
+        background-image: url('./assets/chips/wiki/key-red.png');
+      }
+
+      .tile.chip {
+        background-image: url('./assets/chips/wiki/chip.png');
+      }
+
+      .tile.player::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('./assets/chips/wiki/player.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        image-rendering: pixelated;
+        transform-origin: center;
+        transform: rotate(var(--player-rotation, 0deg));
+      }
+
+      .tile.player.face-up {
+        --player-rotation: 180deg;
+      }
+
+      .tile.player.face-left {
+        --player-rotation: 90deg;
+      }
+
+      .tile.player.face-right {
+        --player-rotation: 270deg;
+      }
+
+      .legend {
+        margin: 8px 0 0;
+        font-size: 11px;
+      }
+
+      .source {
+        margin: 6px 0 0;
+        font-size: 11px;
+      }
+
+      .source a {
+        color: #0038a8;
+      }
+
+      @media (max-width: 760px) {
+        :root {
+          --tile-size: 34px;
+        }
+
+        .title {
+          font-size: 12px;
+        }
+
+        .digit-box {
+          min-width: 92px;
+          font-size: 11px;
+        }
+
+        .key-pill,
+        .status,
+        .hud button,
+        .legend,
+        .source {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="window">
+      <h1 class="title">Chip's Challenge - Lesson 1</h1>
+
+      <section class="hud">
+        <div class="digits">
+          <div class="digit-box">TIME <strong id="time-left">100</strong></div>
+          <div class="digit-box">CHIPS <strong id="chips-left">0/0</strong></div>
+          <div class="digit-box">MOVES <strong id="moves">0</strong></div>
+        </div>
+        <button id="restart" type="button">Restart</button>
+      </section>
+
+      <section class="hud">
+        <div class="keys">
+          <div class="key-pill key-blue">BLUE <span id="key-blue-count">0</span></div>
+          <div class="key-pill key-red">RED <span id="key-red-count">0</span></div>
+          <div class="key-pill key-green">GREEN <span id="key-green-count">0</span></div>
+          <div class="key-pill key-yellow">YELLOW <span id="key-yellow-count">0</span></div>
+        </div>
+      </section>
+
+      <p id="status" class="status">Collect all chips, open the socket, then reach the exit.</p>
+
+      <div class="board-shell">
+        <div id="board" class="board" aria-label="Chip's Challenge stage"></div>
+      </div>
+
+      <p class="legend">Controls: Arrow keys or WASD. On touch screens, tap an adjacent tile.</p>
+      <p class="source">
+        Visual assets are cropped from the Wikimedia screenshot on
+        <a href="https://en.wikipedia.org/wiki/Chip%27s_Challenge" target="_blank" rel="noreferrer">Chip's Challenge</a>.
+      </p>
+    </main>
+
+    <script>
+      'use strict';
+
+      const STAGE_TEMPLATE = [
+        '.H.#X#.H.',
+        '##G#S#G##',
+        '.B.....R.',
+        '.#b.c.r#.',
+        '##H.P.H##',
+        '.#b...r#.',
+        '.R..H..B.',
+        '###Y#Y###',
+        '.#..#..#.',
+      ];
+
+      const TIME_LIMIT = 100;
+      const HINT_TEXT = 'Blue and red keys open matching locks. Collect chips before opening the socket.';
+
+      const boardEl = document.getElementById('board');
+      const statusEl = document.getElementById('status');
+      const chipsLeftEl = document.getElementById('chips-left');
+      const movesEl = document.getElementById('moves');
+      const timeLeftEl = document.getElementById('time-left');
+      const restartBtn = document.getElementById('restart');
+      const keyBlueCountEl = document.getElementById('key-blue-count');
+      const keyRedCountEl = document.getElementById('key-red-count');
+      const keyGreenCountEl = document.getElementById('key-green-count');
+      const keyYellowCountEl = document.getElementById('key-yellow-count');
+
+      let stage = [];
+      let rows = 0;
+      let cols = 0;
+      let player = { row: 0, col: 0 };
+      let facing = 'down';
+      let keys = { b: 0, r: 0, g: 0, y: 0 };
+      let chipsLeft = 0;
+      let totalChips = 0;
+      let moves = 0;
+      let timeLeft = TIME_LIMIT;
+      let finished = false;
+      let timerStarted = false;
+      let timerId = null;
+
+      const doorToKey = {
+        B: 'b',
+        R: 'r',
+        G: 'g',
+        Y: 'y',
+      };
+
+      function safely(fn) {
+        try {
+          fn();
+        } catch (error) {
+          finished = true;
+          clearTimer();
+          setStatus('Game error. Press Restart.', 'lose');
+          console.error(error);
+        }
+      }
+
+      function setStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = 'status';
+        if (type) {
+          statusEl.classList.add(type);
+        }
+      }
+
+      function clearTimer() {
+        if (timerId) {
+          window.clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      function startTimerIfNeeded() {
+        if (timerStarted || finished) {
+          return;
+        }
+
+        timerStarted = true;
+        timerId = window.setInterval(() => {
+          safely(() => {
+            if (finished) {
+              clearTimer();
+              return;
+            }
+
+            timeLeft -= 1;
+
+            if (timeLeft <= 0) {
+              timeLeft = 0;
+              finished = true;
+              clearTimer();
+              setStatus('Time up. Restart to try again.', 'lose');
+            }
+
+            updateHud();
+          });
+        }, 1000);
+      }
+
+      function resetStage() {
+        clearTimer();
+
+        stage = STAGE_TEMPLATE.map((row) => row.split(''));
+        rows = stage.length;
+        cols = stage[0].length;
+        keys = { b: 0, r: 0, g: 0, y: 0 };
+        chipsLeft = 0;
+        totalChips = 0;
+        moves = 0;
+        timeLeft = TIME_LIMIT;
+        finished = false;
+        timerStarted = false;
+        facing = 'down';
+
+        for (let r = 0; r < rows; r += 1) {
+          for (let c = 0; c < cols; c += 1) {
+            const token = stage[r][c];
+            if (token === 'P') {
+              player = { row: r, col: c };
+              stage[r][c] = '.';
+            } else if (token === 'c') {
+              chipsLeft += 1;
+            }
+          }
+        }
+
+        totalChips = chipsLeft;
+        setStatus('Collect all chips, open the socket, then reach the exit.');
+        render();
+      }
+
+      function isInside(row, col) {
+        return row >= 0 && row < rows && col >= 0 && col < cols;
+      }
+
+      function directionFromInput(key) {
+        const mapping = {
+          ArrowUp: [-1, 0, 'up'],
+          ArrowDown: [1, 0, 'down'],
+          ArrowLeft: [0, -1, 'left'],
+          ArrowRight: [0, 1, 'right'],
+          w: [-1, 0, 'up'],
+          s: [1, 0, 'down'],
+          a: [0, -1, 'left'],
+          d: [0, 1, 'right'],
+        };
+
+        return mapping[key] || null;
+      }
+
+      function tryMove(dr, dc, nextFacing) {
+        if (finished) {
+          return;
+        }
+
+        facing = nextFacing;
+
+        const nextRow = player.row + dr;
+        const nextCol = player.col + dc;
+
+        if (!isInside(nextRow, nextCol)) {
+          renderBoard();
+          updateHud();
+          return;
+        }
+
+        const token = stage[nextRow][nextCol];
+
+        if (token === '#') {
+          setStatus('Blocked by a wall.');
+          renderBoard();
+          updateHud();
+          return;
+        }
+
+        if (doorToKey[token]) {
+          const keyType = doorToKey[token];
+          if (keys[keyType] <= 0) {
+            setStatus('That lock is closed. Find the matching key.');
+            renderBoard();
+            updateHud();
+            return;
+          }
+          keys[keyType] -= 1;
+          stage[nextRow][nextCol] = '.';
+          setStatus('Lock opened.');
+        }
+
+        if (token === 'S') {
+          if (chipsLeft > 0) {
+            setStatus('Socket is locked. Collect all chips first.');
+            renderBoard();
+            updateHud();
+            return;
+          }
+          stage[nextRow][nextCol] = '.';
+          setStatus('Socket opened. Exit is accessible.');
+        }
+
+        startTimerIfNeeded();
+
+        player = { row: nextRow, col: nextCol };
+        moves += 1;
+
+        const newTile = stage[nextRow][nextCol];
+
+        if (newTile === 'b' || newTile === 'r' || newTile === 'g' || newTile === 'y') {
+          keys[newTile] += 1;
+          stage[nextRow][nextCol] = '.';
+          setStatus('Key collected.');
+        } else if (newTile === 'c') {
+          chipsLeft -= 1;
+          stage[nextRow][nextCol] = '.';
+          if (chipsLeft === 0) {
+            setStatus('All chips collected. Find the socket.');
+          } else {
+            setStatus('Chip collected.');
+          }
+        } else if (newTile === 'H') {
+          setStatus(HINT_TEXT);
+        } else if (newTile === 'X') {
+          if (chipsLeft === 0) {
+            finished = true;
+            clearTimer();
+            setStatus('Stage clear. You beat Lesson 1.', 'win');
+          } else {
+            setStatus('Exit is sealed by the socket lock.');
+          }
+        }
+
+        render();
+      }
+
+      function classForTile(token) {
+        const classes = ['tile'];
+
+        if (token === '#') {
+          classes.push('wall');
+          return classes;
+        }
+
+        classes.push('floor');
+
+        if (token === 'H') {
+          classes.push('hint');
+        } else if (token === 'X') {
+          classes.push('exit');
+        } else if (token === 'S') {
+          classes.push('socket');
+        } else if (token === 'B') {
+          classes.push('door-blue');
+        } else if (token === 'R') {
+          classes.push('door-red');
+        } else if (token === 'G') {
+          classes.push('door-green');
+        } else if (token === 'Y') {
+          classes.push('door-yellow');
+        } else if (token === 'b') {
+          classes.push('key-blue');
+        } else if (token === 'r') {
+          classes.push('key-red');
+        } else if (token === 'c') {
+          classes.push('chip');
+        }
+
+        return classes;
+      }
+
+      function renderBoard() {
+        boardEl.innerHTML = '';
+        boardEl.style.gridTemplateColumns = `repeat(${cols}, var(--tile-size))`;
+
+        for (let r = 0; r < rows; r += 1) {
+          for (let c = 0; c < cols; c += 1) {
+            const token = stage[r][c];
+            const tile = document.createElement('button');
+            tile.type = 'button';
+            tile.className = classForTile(token).join(' ');
+
+            if (player.row === r && player.col === c) {
+              tile.classList.add('player');
+              tile.classList.add(`face-${facing}`);
+            }
+
+            tile.addEventListener('click', () =>
+              safely(() => {
+                const dr = r - player.row;
+                const dc = c - player.col;
+                if (Math.abs(dr) + Math.abs(dc) !== 1) {
+                  return;
+                }
+
+                if (dr === -1) {
+                  tryMove(-1, 0, 'up');
+                } else if (dr === 1) {
+                  tryMove(1, 0, 'down');
+                } else if (dc === -1) {
+                  tryMove(0, -1, 'left');
+                } else {
+                  tryMove(0, 1, 'right');
+                }
+              }),
+            );
+
+            boardEl.appendChild(tile);
+          }
+        }
+      }
+
+      function updateHud() {
+        chipsLeftEl.textContent = `${chipsLeft}/${totalChips}`;
+        movesEl.textContent = String(moves);
+        timeLeftEl.textContent = String(timeLeft);
+        keyBlueCountEl.textContent = String(keys.b);
+        keyRedCountEl.textContent = String(keys.r);
+        keyGreenCountEl.textContent = String(keys.g);
+        keyYellowCountEl.textContent = String(keys.y);
+      }
+
+      function render() {
+        renderBoard();
+        updateHud();
+      }
+
+      window.addEventListener('keydown', (event) => {
+        safely(() => {
+          const direction = directionFromInput(event.key);
+          if (!direction) {
+            return;
+          }
+
+          event.preventDefault();
+          tryMove(direction[0], direction[1], direction[2]);
+        });
+      });
+
+      restartBtn.addEventListener('click', () => safely(resetStage));
+
+      window.addEventListener('error', () => {
+        if (!finished) {
+          setStatus('Game error. Press Restart.', 'lose');
+        }
+      });
+
+      resetStage();
+    </script>
+  </body>
+</html>

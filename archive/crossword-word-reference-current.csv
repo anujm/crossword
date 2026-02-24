@@ -1,0 +1,75 @@
+direction,number,word,clue,rank_en_50k,count_en_50k,why_selected
+Across,1,MARIO,Nintendo plumber hero,4607,7787,Common word: preferred during weighted search while satisfying crossings.
+Down,1,MOHINI,Enchantress avatar in Hindu mythology,31600,373,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,2,ALONSO,Fernando of Formula 1,13711,1523,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,3,RAUS,"German word for ""out""",31892,366,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,4,INGE,Given name of seismologist Lehmann,20954,760,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,5,OOH,Sound of admiration,675,87683,High-frequency anchor: favored strongly by the generator objective.
+Across,6,IKARI,Five-letter entry beginning with IK-,40915,231,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,6,IRVING,Author Washington ___,11201,2085,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,7,KEATS,Poet John ___,23209,638,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,8,AVNI,Given name beginning AV-,46258,183,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,9,REE,Drummond of Food Network,40964,231,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,10,INSOLENT,Rude and disrespectful,13526,1554,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,11,SOLANO,California county near Napa,28197,457,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,11,STRIP,Remove clothing from,3393,11481,Common word: preferred during weighted search while satisfying crossings.
+Across,12,REVENUE,Income from operations,10652,2262,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,13,USUALLY,Most of the time,1112,46770,High-frequency anchor: favored strongly by the generator objective.
+Down,14,EAT,Have a meal,373,197654,High-frequency anchor: favored strongly by the generator objective.
+Across,15,THOUGHT,Idea held in the mind,167,558542,High-frequency anchor: favored strongly by the generator objective.
+Down,16,THREE,2 + 1,231,366626,High-frequency anchor: favored strongly by the generator objective.
+Across,17,VANESSA,Female first name,4763,7418,Common word: preferred during weighted search while satisfying crossings.
+Across,18,RINSE,Wash lightly with water,13951,1484,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,19,HAITI,Caribbean nation west of the Dominican Republic,16192,1171,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,20,AUNT,Parent's sister,1125,45834,High-frequency anchor: favored strongly by the generator objective.
+Across,21,OUT,Not in,50,2510010,High-frequency anchor: favored strongly by the generator objective.
+Across,22,INS,"What batters need, briefly",19671,847,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,23,RUNS,Happens to move quickly,1915,24284,High-frequency anchor: favored strongly by the generator objective.
+Across,24,ALA,In the style of,30865,389,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,24,AMARA,Female given name,28471,450,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Across,25,PIO,Pope ___ XII,31437,376,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Across,26,CHENG,Common Chinese surname,9402,2748,Common word: preferred during weighted search while satisfying crossings.
+Down,26,CURSE,Hex,2552,16867,Common word: preferred during weighted search while satisfying crossings.
+Down,27,HIS,Belonging to him,76,1666361,High-frequency anchor: favored strongly by the generator objective.
+Across,28,SMELT,Small fish used as bait,19009,900,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,28,SMALL,Little,577,112316,High-frequency anchor: favored strongly by the generator objective.
+Down,29,TYR,Norse god of war,21004,756,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,30,QUIET,Not loud,660,90552,High-frequency anchor: favored strongly by the generator objective.
+Down,30,QUITE,To a high degree,428,166980,High-frequency anchor: favored strongly by the generator objective.
+Across,31,MANLY,Having a masculine style,9805,2587,Common word: preferred during weighted search while satisfying crossings.
+Across,32,OCCURS,Takes place,10005,2508,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,32,OPS,"Operations, briefly",9043,2909,Common word: preferred during weighted search while satisfying crossings.
+Down,33,CATALOG,Product list,14536,1389,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,34,CRACKING,"Excellent, in U.K. slang",5682,5798,Common word: preferred during weighted search while satisfying crossings.
+Across,35,MARTYR,One who dies for a cause,10312,2384,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,35,MOE,"""The Simpsons"" bartender",8686,3111,Common word: preferred during weighted search while satisfying crossings.
+Across,36,PARIS,City of the Eiffel Tower,1169,44110,High-frequency anchor: favored strongly by the generator objective.
+Across,37,BHOLA,District of Bangladesh,28473,450,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,37,BRUN,French word for brown,49369,163,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,38,HUGGY,"Nickname before ""Bear"" in Starsky & Hutch",34618,316,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Across,39,STATE,Condition or province,715,80818,High-frequency anchor: favored strongly by the generator objective.
+Across,40,CRUEL,Mean and unkind,2784,14872,Common word: preferred during weighted search while satisfying crossings.
+Down,40,CRUSOE,Robinson ___,21253,742,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,41,APP,Mobile software program,8494,3218,Common word: preferred during weighted search while satisfying crossings.
+Down,41,ADRIAN,Rocky rival in Rocky II and III,4422,8159,Common word: preferred during weighted search while satisfying crossings.
+Down,42,POINTS,Scores,1893,24659,High-frequency anchor: favored strongly by the generator objective.
+Down,43,PONGO,Dalmatian dad in a Disney classic,34981,310,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Across,44,ACE,Top card in a deck,4503,7987,Common word: preferred during weighted search while satisfying crossings.
+Across,45,DRUG,Medicine or narcotic,1397,36316,High-frequency anchor: favored strongly by the generator objective.
+Down,45,DENIM,Blue-jeans fabric,22067,696,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Across,46,DOO,Scooby-___,6607,4732,Common word: preferred during weighted search while satisfying crossings.
+Across,47,ELK,Large antlered deer,16678,1116,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,47,EPI,"Prefix meaning ""upon""",16339,1154,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,48,LEUNG,Surname of actor Tony ___,17745,1005,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,48,LOCO,"Crazy, in Spanish",15163,1300,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,49,SARIN,Nerve agent banned by treaty,26182,521,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,49,SLAV,Member of an Eastern European people,43002,211,Lower-frequency constraint fill: chosen because crossings/pattern restricted options.
+Down,50,ALMA,___ mater,10045,2492,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,51,POISONS,Toxins,16391,1148,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Down,52,SAN,Japanese honorific suffix,1775,26690,High-frequency anchor: favored strongly by the generator objective.
+Across,53,YELLING,Shouting loudly,1904,24425,High-frequency anchor: favored strongly by the generator objective.
+Down,54,EYE,Organ of vision,711,81953,High-frequency anchor: favored strongly by the generator objective.
+Across,55,IGNACIO,Spanish given name,19334,875,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,56,YAMATO,Old province name in Japan,13776,1511,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,57,GNOME,Garden statue figure,17727,1007,Medium-frequency fit: accepted to keep the grid fully crossed and valid.
+Across,58,EVANS,Surname of actor Chris ___,6117,5231,Common word: preferred during weighted search while satisfying crossings.
